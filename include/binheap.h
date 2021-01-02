@@ -11,7 +11,12 @@
  *  This class is mean to represent binary heaps.
  */
 typedef struct {
-
+    void *A; // this is the array used to store heap nodes
+    unsigned int num_of_elem; // this is the number of nodes in the heap
+    unsigned int max_size; // maximum number of nodes, i.e., size of A.
+    size_t key_size; // size of the key type
+    total_order_type leq; // this is the heap total order
+    void *max_order_value; // this is the maximum value stored in the heap
 } binheap_type;
 
 /**********************************************************************

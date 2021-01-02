@@ -1,5 +1,14 @@
 #include <binheap.h>
 
+#define PARENT(node) ((node - 1)/2)
+#define LEFT_CHILD(node) (2*(node) + 1)
+#define RIGHT_CHILD(node) (2*(node+1))
+
+#define VALID_NODE(H, node) ((H)->num_of_elem>(node))
+
+#define ADDR(H, node) ((H)->A+(node)*(H)->key_size)
+#define INDEX_OF(H, addr) (((addr-(H)->A))/(H)->key_size)
+
 int is_heap_empty(const binheap_type *H)
 {
     // This function must be re-implemented
