@@ -1,5 +1,6 @@
 #include <binheap.h>
 #include <string.h>
+#include <stdio.h>
 
 #define PARENT(node) ((node - 1)/2)
 #define LEFT_CHILD(node) (2*(node) + 1)
@@ -7,7 +8,7 @@
 
 #define VALID_NODE(H, node) ((H)->num_of_elem>(node))
 
-#define ADDR(H, node) ((H)->A+(node)*(H)->key_size)
+#define ADDR(H, node) ((H)->A+(node)*(H)->key_size) // A[i]
 #define INDEX_OF(H, addr) (((addr-(H)->A))/(H)->key_size)
 
 int is_heap_empty(const binheap_type *H)
@@ -32,7 +33,6 @@ void swap_keys(binheap_type *H, unsigned int n_a, unsigned int n_b)
     void *tmp = malloc(H->key_size);
 
     // perform the actual swap
-
     memcpy(tmp, p_a, H->key_size);
     memcpy(p_a, p_b, H->key_size);
     memcpy(p_b, tmp, H->key_size);
@@ -146,8 +146,7 @@ binheap_type *build_heap(void *A,
 	}
 	heapify(H, 0);
 
-
-    return NULL;
+    return H;
 }
 
 void delete_heap(binheap_type *H)
@@ -191,13 +190,41 @@ const void *decrease_key(binheap_type *H, void *node, const void *value)
 
 const void *insert_value(binheap_type *H, const void *value)
 {
-    // This function must be re-implemented
+    //if the heap is already full
+    if(H->max_size == H->num_of_elem){
+    	return NULL;
+    }
 
-    return NULL;
+    // if the new value > *max_order_value
+    if(H->num_of_elem == 0 || !H->leq(value, H->max_order_value)){
+    	memcpy(H->max_order_value, value, H->key_size);
+    }
+
+    // get the position of the new node
+    void *new_node_addr = ADDR(H, H->num_of_elem);
+    memcpy(new_node_addr, H->max_order_value, H->key_size);
+    
+    // increase the size of the heap
+    H->num_of_elem++;
+
+    // decrease the key of the new node
+    return decrease_key(H, new_node_addr, value);
 }
 
 void print_heap(const binheap_type *H, 
                 void (*key_printer)(const void *value))
 {
-    // This function must be implemented
+    unsigned int next_level_node = 1;   // stores the index of the 
+                                        // left-most node of the
+                                        // next level
+    for (unsigned int node = 0; node < H->num_of_elem; node++){
+        if (node == next_level_node){
+            printf("\n");
+            next_level_node = LEFT_CHILD(node);
+        } else{
+            printf("\t");
+        }
+        key_printer(ADDR(H, node));
+    }
+    printf("\n");
 }
