@@ -4,7 +4,7 @@ heaps in the C-programming language.
 
 This template contains all the code needed to test your implementation of 
 binary heaps in both correctness and efficiency terms. 
-Your are exclusively required to code the type `binheap_type` 
+You are exclusively required to code the type `binheap_type` 
 in the file [binheap.h](include/binheap.h) and all the functions 
 dealing it in the file [binheap.c](src/binheap.c). The meaning of the 
 function parameters and the semantics of the functions themselves are detailed 
