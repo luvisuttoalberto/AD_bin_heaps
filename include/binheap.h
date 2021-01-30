@@ -2,8 +2,7 @@
 #define __BIN_HEAP__
 
 #include <stdlib.h>
-
-#include <total_orders.h>
+#include "total_orders.h"
 
 /** @struct binheap_type
  *  @brief A class to represent binary heaps.

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "total_orders.h"
 
 int leq_float(const void *a, const void *b)
 {
